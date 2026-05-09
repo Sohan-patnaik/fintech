@@ -1,26 +1,26 @@
 
-fastapi==0.115.0
-uvicorn[standard]==0.29.0
-python-jose[cryptography]==3.3.0
-bcrypt>=4.0.1
-python-multipart==0.0.12
+fastapi
+uvicorn[standard]
+python-jose[cryptography]
+bcrypt
+python-multipart
 
-pydantic==2.7.1
-pydantic-settings==2.3.0
+pydantic
+pydantic-settings
 pydantic[email]
 
-openai==1.54.0
-langgraph==0.2.45
-langchain-core==0.3.15
+openai
+langgraph
+langchain-core
 
-supabase==2.9.1
+supabase
 
-yfinance==0.2.50
+yfinance
 
-httpx==0.27.2
-beautifulsoup4==4.12.3
+httpx
+beautifulsoup4
 
-chromadb==0.5.23
+chromadb
 
 langchain_nvidia_ai_endpoints
 
