@@ -11,13 +11,13 @@ _client = None
 
 def get_llm_client() -> ChatNVIDIA:
     global _client
-    if not settings.NVIDIA_API_KEY:
+    if not settings.NVIDIA_API_KEY.get_secret_value():
         raise RuntimeError("NVIDIA_API_KEY not configured")
 
     if _client is None:
         _client = ChatNVIDIA(
             model="nvidia/nemotron-3-nano-30b-a3b",
-            api_key=settings.NVIDIA_API_KEY,
+            api_key=settings.NVIDIA_API_KEY.get_secret_value(),
             temperature=0.2,
             top_p=1,
             max_tokens=16384,

@@ -48,7 +48,7 @@ async def scrape_news(ticker: str, max_articles: int = 10) -> list[dict]:
     ticker = ticker.upper().strip()
 
     # ── Source 1: Finnhub ─────────────────────────────────────────────────────
-    if hasattr(settings, "FINNHUB_API_KEY") and settings.FINNHUB_API_KEY:
+    if hasattr(settings, "FINNHUB_API_KEY") and settings.FINNHUB_API_KEY.get_secret_value():
         try:
             articles = await _fetch_finnhub(ticker, max_articles)
             if articles:
