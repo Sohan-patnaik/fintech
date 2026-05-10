@@ -1,4 +1,5 @@
 from functools import lru_cache
+import json
 from pydantic import SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -52,6 +53,13 @@ class Settings(BaseSettings):
     def validate_url(cls, v):
         if not v.startswith("https://"):
             raise ValueError("SUPABASE_URL must use HTTPS")
+        return v
+
+    @field_validator("CORS_ORIGINS", "ALLOWED_HOSTS", mode="before") 
+    @classmethod
+    def parse_list(cls, v):
+        if isinstance(v, str):
+            return json.loads(v)
         return v
 
 
