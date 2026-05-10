@@ -58,17 +58,6 @@ class LoggingMiddleware(BaseHTTPMiddleware):
 
         return response
 
-
-app.add_middleware(LoggingMiddleware)
-
-if settings.ENV == "production":
-    app.add_middleware(HTTPSRedirectMiddleware)
-
-app.add_middleware(
-    TrustedHostMiddleware,
-    allowed_hosts=settings.ALLOWED_HOSTS,
-)
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
@@ -76,6 +65,17 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["Authorization", "Content-Type"],
 )
+
+app.add_middleware(
+    TrustedHostMiddleware,
+    allowed_hosts=settings.ALLOWED_HOSTS,
+)
+
+if settings.ENV == "production":
+    app.add_middleware(HTTPSRedirectMiddleware)
+
+
+app.add_middleware(LoggingMiddleware)
 
 
 @app.exception_handler(RateLimitExceeded)
