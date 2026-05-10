@@ -107,7 +107,7 @@ def retrieve_relevant_news(
     """
     col = _get_collection()
 
-    # Guard against empty collection
+
     total = col.count()
     if total == 0:
         logger.info("Collection is empty, skipping query")

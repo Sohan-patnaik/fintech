@@ -112,7 +112,7 @@ async def _fetch_finnhub(ticker: str, max_articles: int) -> list[dict]:
         "symbol": ticker,
         "from": from_date,
         "to": to_date,
-        "token": settings.FINNHUB_API_KEY,
+        "token": settings.FINNHUB_API_KEY.get_secret_value(),
     }
 
     client = _get_client()
