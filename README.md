@@ -1,4 +1,4 @@
-# FinSight AI — Investment Analysis Backend
+# FinTech AI — Investment Analysis Backend
 
 > A production-grade FastAPI backend powering an AI investment analyst. Ask a question in plain English, get a structured Buy / Hold / Sell recommendation backed by real-time market data, news sentiment, and fundamental analysis — all orchestrated through a multi-agent LangGraph pipeline.
 
@@ -68,7 +68,7 @@ The HTML scraper was replaced entirely — Yahoo's React-rendered pages require 
 
 | Layer | Technology |
 |---|---|
-| **API Framework** | FastAPI (async, Python 3.13) |
+| **API Framework** | FastAPI (async, Python 3.11) |
 | **AI Orchestration** | LangGraph, LangChain Core |
 | **LLM** | Nvidia Nemotron 70B via Nvidia API |
 | **Vector Store** | ChromaDB + sentence-transformers |
