@@ -1,8 +1,10 @@
 import uuid
 import re
+import json
 from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi.responses import StreamingResponse
 from schemas.all import ChatRequest, ChatResponse, RecommendationType
-from graph.workflow import run_pipeline
+from graph.workflow import run_pipeline, stream_pipeline
 from core.security import get_current_user_id
 from core.logger import get_logger
 from core.limiter import limiter
@@ -66,6 +68,26 @@ async def chat(
         )
 
     return _build_response(result, request_id, log)
+
+
+@router.post("/stream")
+@limiter.limit("10/minute")
+async def chat_stream(
+    request: Request,
+    payload: ChatRequest,
+    user_id: int = Depends(get_current_user_id),
+):
+    request_id = str(uuid.uuid4())[:8]
+    query = payload.query.strip()
+    ticker_hint = _extract_ticker_hint(query)
+    
+    async def event_generator():
+        async for chunk in stream_pipeline(query=query, ticker=ticker_hint, holdings=[]):
+            event_type = chunk["event"]
+            data_str = json.dumps(chunk["data"])
+            yield f"event: {event_type}\ndata: {data_str}\n\n"
+            
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
 
 
 def _build_response(result: dict, request_id: str, log) -> ChatResponse:

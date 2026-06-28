@@ -49,7 +49,7 @@ class RouterAgent(BaseAgent):
         for intent, keywords in INTENT_MAP.items():
             if any(kw in query for kw in keywords):
                 return intent
-            return "full_analysis"
+        return "full_analysis"
 
     def _resolve_agents(self, intent: str) -> list[str]:
         mapping = {

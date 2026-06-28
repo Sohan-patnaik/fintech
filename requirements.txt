@@ -24,3 +24,7 @@ chromadb==0.5.23
 langchain_nvidia_ai_endpoints
 
 slowapi
+sse-starlette
+
+pytest
+pytest-asyncio
